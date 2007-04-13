@@ -1,0 +1,3 @@
+php_value error_reporting 2047
+php_value display_errors on
+Options +MultiViews

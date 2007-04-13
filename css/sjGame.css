@@ -1,0 +1,496 @@
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body { 
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, sans-serif;
+	color: #000;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+}
+
+#sjGUIWrapper { 
+	position: relative;
+	margin: 50px auto 0 auto;
+	width: 760px;
+	height: 615px;
+	background: url(../gfx/gui/bg.jpg) no-repeat;
+	border: 1px solid black;
+}
+
+#sjGameScreenPreloader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 760px;
+	height: 615px;
+	display: block;
+	background: #eef4fe;
+	z-index: 1000;
+}
+
+th, td {
+	text-align: center;
+	padding: 1px 2px;
+	margin: 1px;
+}
+
+option {
+	padding-right: 5px;
+}
+
+/* Logo */
+img#logo {
+	position: absolute;
+	top: 92px;
+	left: 41px;
+}
+
+/* Game buttons */
+#sjGUIControls {
+	position: absolute;
+	top: 259px;
+	left: 528px;
+	width: 186px;
+}
+
+#sjGUIControls a {
+	display: block;
+	width: 186px;
+	height: 39px;
+	margin-bottom: 8px;
+}
+
+#sjGUIControls a.newgame { background: url(../gfx/gui/b_newgame.gif); }
+#sjGUIControls a.newgame:hover { background: url(../gfx/gui/b_newgame_on.gif); }
+#sjGUIControls a.options { background: url(../gfx/gui/b_options.gif); }
+#sjGUIControls a.options:hover { background: url(../gfx/gui/b_options_on.gif); }
+#sjGUIControls a.scores { background: url(../gfx/gui/b_scores.gif); }
+#sjGUIControls a.scores:hover { background: url(../gfx/gui/b_scores_on.gif); }
+#sjGUIControls a.help { background: url(../gfx/gui/b_help.gif); }
+#sjGUIControls a.help:hover { background: url(../gfx/gui/b_help_on.gif); }
+
+/* Game scores */
+#sjGUIStatus {
+	position: absolute;
+	top: 534px;
+	left: 55px;
+	width: 473px;
+	height: 43px;
+	background: url(../gfx/gui/scores.gif);
+}
+
+#sjGameScore, #sjGameScorePotential { 
+	position: absolute;
+	top: 10px;
+	left: 112px;
+	width: 87px;
+	height: 21px;
+	color: #555;
+	text-align: right;
+	font-size: 16px;
+	font-weight: bold;
+	overflow: hidden;
+}
+
+#sjGameScorePotential {
+	left: 378px;
+}
+
+/* Game Screen */
+#sjGameScreenWrapper {
+	position: absolute;
+	left: 60px;
+	top: 215px; 
+	width: 466px; 
+	height: 311px;
+}
+
+/* Game screens */
+#sjGameScreenBoard, 
+#sjGameScreenReplay,
+#sjGameScreenLoading, 
+#sjGameScreenOptions, 
+#sjGameScreenOver, 
+#sjGameScreenScores,
+#sjGameScreenHelp {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 466px;
+	height: 311px;
+	color: #777;
+	overflow: hidden;
+	background: #eef4fe;
+	z-index: 200;
+	display: none;
+}
+
+/* Move board down and right one from the rest of the screens for aesthetical purposes */
+#sjGameScreenBoard {
+	top: 1px;
+	left: 1px;
+	background: transparent;
+	z-index: 0;
+	display: block;
+}
+
+#sjGameScreenReplay {
+	background: transparent;
+}
+
+#sjGameInput {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 466px;
+	height: 311px;
+	z-index: 100;
+	background: url(../gfx/board/pixel.gif); /* required for ie */
+}
+
+#sjGameScreenLoading {
+}
+
+#sjGameScreenOver {
+}
+
+#sjGameScreenOptions { 
+}
+
+#sjGameScreenScores {
+}
+
+#sjGameScreenHelp {
+}
+	
+/* Game tiles */
+#sjGameScreen img {
+	padding: 1px 0 0 1px;
+}
+
+/* Loading and Preloader screen */
+#sjGameScreenLoading img.title {
+	margin-top: 75px;
+}
+
+#sjGameScreenPreloader img.title {
+	margin-top: 180px;
+}
+
+#sjGameScreenLoading_message,
+#sjGameScreenPreloader_message {
+	margin: 10px auto 20px auto;
+	color: #6a648e;
+	font-weight: bold;
+}
+
+#sjGameScreenPreloader_percentage {
+	margin-bottom: 20px;
+}
+
+/* Options screen */
+#sjGameScreenOptions div {
+	margin: 10px 20px;
+	padding: 5px;
+}
+
+#sjGameScreenOptions div p {
+	font-weight: normal;
+	font-size: 14px;
+	margin-top: 3px;
+}
+
+#sjGameScreenOptions #sjGameScreenOptions_currentName {
+	margin-bottom: 7px;
+	color: #6a648e;
+}
+
+#sjGameScreenOptions_loading {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	display: none;
+}
+
+/* High scores screen */
+#sjGameScreenScores div {
+	margin: 10px 20px;
+	padding: 5px;
+}
+
+#sjGameScreenScores div span {
+	font-weight: normal;
+	color: #6a648e;
+}
+
+#sjGameScreenScores #sjGameScreenScores_scores {
+	margin: 0;
+	padding: 0;
+	height: 146px;
+	overflow: auto;
+}
+
+#sjGameScreenScores table {
+	margin: 0 auto;
+	width: 426px;
+}
+
+#sjGameScreenScores td {
+	font-weight: normal;
+	background: #fff;
+}
+
+#sjGameScreenScores td.replay a {
+	display: block;
+	width: 16px;
+	height: 16px;
+	margin: 0 auto;
+	background: url(../gfx/gui/gamereplay.gif);
+	border: 1px outset #ccc;
+}
+
+#sjGameScreenScores td.replay a:hover {
+	border: 1px inset #ccc;
+}
+
+#sjGameScreenScores th {
+	font-weight: bold;
+	background: #bbb;
+	color: #fff;
+	border: 1px solid #6c6c6c;
+}
+
+#sjGameScreenScores td { 
+	border: 1px solid #bfbfbf;
+}
+
+#sjGameScreenScores .rank {
+	font-weight: bold;
+}
+
+#sjGameScreenScores .name {
+	text-align: left;
+}
+
+#sjGameScreenScores td.name {
+	color: #6a648e;
+}
+
+#sjGameScreenScores td.math {
+	font-weight: bold;
+}
+
+#sjGameScreenScores td.replay a:link,
+#sjGameScreenScores td.replay a:visited,
+#sjGameScreenScores td.replay a:active {
+	
+}
+
+#sjGameScreenScores td.replay a:hover {
+
+}
+
+#sjGameScreenScores_worldAverage, #sjGameScreenScores_playerAverage {
+	display: none;
+}
+
+#sjGameScreenScores_loading {
+	position: absolute;
+	top: 3px;
+	left: 2px;
+	display: none;
+}
+
+/* Game over screen */
+#sjGameScreenOver div {
+	margin: 10px 20px;
+	padding: 5px;
+}
+
+#sjGameScreenOver h2 {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#sjGameScreenOver table {
+	margin: 0 auto;
+	width: 300px;
+}
+
+#sjGameScreenOver td {
+	text-align: left;
+	font-weight: normal;
+}
+
+#sjGameScreenOver td.total {
+	border-top: 1px solid #6c6c6c;
+	text-align: right;
+	font-size: 36px;	
+	font-weight: bold;
+	color: #6a648e;
+}
+
+#sjGameScreenOver td.score {
+	text-align: right;
+	font-weight: bold;
+}
+
+#sjGameScreenOver_name {
+	color: #6a648e;
+	font-weight: bold;
+}
+
+#sjGameScreenOver p {
+	font-weight: normal;
+	
+}
+
+/* Help screen */
+#sjGameScreenHelp div {
+	margin: 10px 20px;
+	padding: 5px;
+}
+
+#sjGameScreenHelp div#pages {
+	position: relative;
+	height: 175px;
+	background: #fff;
+	border: 1px solid #6c6c6c;
+}
+
+#sjGameScreenHelp div.page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #fff;
+}
+
+#sjGameScreenHelp div.page h2 {
+	text-align: left;
+}
+
+#sjGameScreenHelp div.page p.quote {
+	margin-top: 30px;
+	text-align: left;
+	color: #ccc;
+	font-style: italic;
+}
+
+#sjGameScreenHelp div.page p.answer {
+	margin-top: 30px;
+	text-align: left;
+	font-size: 12px;
+}
+
+/* Replay screen */
+#sjGameScreenReplay div {
+	margin: 10px 20px;
+	padding: 5px;
+}
+
+#sjGameScreenReplay_bg,
+#sjGameScreenReplay_info {
+	position: absolute;
+	top: 5px;
+	right: -5px;
+	width: 300px;
+	height: 56px;
+	padding: 2px;
+	overflow: hidden;
+	border: 1px solid #6a648e;
+	margin: 0;
+}
+
+#sjGameScreenReplay_bg {
+	background: #fff;
+	opacity: 0.8;
+	-moz-opacity: 0.8;
+	filter:alpha(opacity=80);
+}
+
+#sjGameScreenReplay_info {
+	color: #857db3;
+	text-align: left;
+	font-size: 20px;
+	font-weight: normal;
+	background: transparent;
+}
+
+#sjGameScreenReplay_info span, #sjGameScreenReplay_info sup {
+	font-weight: bold;
+}
+
+#sjGameScreenReplay_player {
+	color: #6a648e;
+}
+
+/* Shared game screen styles */
+#sjGUIWrapper .title {
+	margin: 10px auto 0 auto;
+}
+
+#sjGUIWrapper .item {
+	background: #fff;
+	border: 1px solid #6c6c6c;		
+}
+
+#sjGUIWrapper a:link, #sjGUIWrapper a:active, #sjGUIWrapper a:visited, #sjGUIWrapper a:hover {
+	color: #7393c7;
+}
+
+#sjGUIWrapper a:hover {
+	color: #000;
+}
+
+#sjGUIWrapper div.button {
+	position: absolute;
+	left: 0;
+	bottom: 6px;
+	width: 466px;
+	margin: 0;
+}
+	
+#sjGUIWrapper div.button a:link, 
+#sjGUIWrapper div.button a:active, 
+#sjGUIWrapper div.button a:visited, 
+#sjGUIWrapper div.button a:hover {
+	margin: 0 auto;
+	padding: 2px 30px;
+	color: #fff;
+	background: #6a648e;
+	border: 2px solid #fff;
+	text-decoration: none;
+}
+
+#sjGUIWrapper div.button a:hover {
+	color: #6a648e;
+	background: #fff;
+	border: 2px solid #6a648e;
+}
+
+/**
+ * Non-game related
+*/
+
+#taptrap {
+	margin-top: 20px;
+}
+
+#taptrap a:link,
+#taptrap a:active,
+#taptrap a:visited,
+#taptrap a:hover {
+	color: #ddd;
+	text-decoration: none;
+}
+
+#taptrap a:hover {
+	color: #7393c7;	
+	text-decoration: underlined;
+}
