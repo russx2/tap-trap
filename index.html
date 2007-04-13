@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tap Trap Game</title>
+<link rel="stylesheet" type="text/css" href="css/sjGame.css" media="screen" />
+<!-- <script type="text/javascript" src="core/SameJS.compressed.11.js"></script> -->
+<script type="text/javascript" src="core/__DOMOnload.js"></script>
+<script type="text/javascript" src="core/SameJS.js"></script>
+<script type="text/javascript" src="core/SameJS_screenPreloader.js"></script>
+<script type="text/javascript" src="core/SameJS_screenReplay.js"></script>
+<script type="text/javascript" src="core/SameJS_screenOptions.js"></script>
+<script type="text/javascript" src="core/SameJS_screenScores.js"></script>
+<script type="text/javascript" src="core/SameJS_screenGameOver.js"></script>
+<script type="text/javascript" src="core/SameJS_screenLoading.js"></script>
+<script type="text/javascript" src="core/SameJS_screenHelp.js"></script>
+<script type="text/javascript" src="core/sjGame.js"></script>
+<script type="text/javascript" src="core/sjCommon.js"></script>
+<script type="text/javascript" src="core/sjDataStore.js"></script>
+<script type="text/javascript" src="core/sjInput.js"></script>
+<script type="text/javascript" src="core/sjBoard.js"></script>
+<script type="text/javascript" src="core/sjSprite.js"></script>
+<script type="text/javascript" src="core/sjSpriteGraphic.js"></script>
+
+<script type="text/javascript">
+
+var game = null;
+
+function init() {
+	
+	if( window.SameJS) {
+		game = new SameJS();
+	}
+	else {
+		setTimeout( init, 250);
+	}
+}
+
+</script>
+</head>
+<body>
+
+<div id="sjGUIWrapper">
+
+	<img id="logo" src="gfx/gui/logo.gif" width="209" height="91" alt="TapTrap" />
+
+	<!-- Screen selection buttons -->
+	<div id="sjGUIControls">
+		<a class="newgame" href="#" onclick="game.actionNewGame(); return false;" onfocus="this.blur()"></a>
+		<a class="options" href="#" onclick="game.screenOpen( 'options'); return false;" onfocus="this.blur()"></a>
+		<a class="scores" href="#" onclick="game.screenOpen( 'scores'); return false;" onfocus="this.blur()"></a>
+		<a class="help" href="#" onclick="game.screenOpen( 'help'); return false;" onfocus="this.blur()"></a>
+	</div>
+	
+	<!-- Screen - Initial load -->
+	<div id="sjGameScreenPreloader">
+	
+		<img src="gfx/gui/title_loading.gif" width="167" height="68" alt="Loading" class="title" />
+		<div id="sjGameScreenPreloader_message"></div>
+		<p id="sjGameScreenPreloader_percentage"></p>
+		<img src="gfx/gui/loading.gif" width="32" height="32" alt="Loading..." />
+		
+	</div>
+	
+	<div id="sjGameScreenWrapper">
+	
+		<!-- Screen - Play area -->
+		<div id="sjGameScreenBoard"></div>
+		
+		<!-- Screen - Loading -->
+		<div id="sjGameScreenLoading">
+		
+			<img src="gfx/gui/title_loading.gif" width="167" height="68" alt="Loading" class="title" />
+			<div id="sjGameScreenLoading_message"></div>
+			<img src="gfx/gui/loading.gif" width="32" height="32" alt="Loading..." />
+			
+		</div>
+		
+		<!-- Screen - Replay -->
+		<div id="sjGameScreenReplay">
+			<div id="sjGameScreenReplay_bg"></div>
+			<div id="sjGameScreenReplay_info">
+				<p>
+					<span id="sjGameScreenReplay_player"></span>
+				</p>
+				<p>
+					<span id="sjGameScreenReplay_rank"></span><sup id="sjGameScreenReplay_rankSup"></sup>&nbsp;with <span id="sjGameScreenReplay_score"></span>
+				</p>
+				
+			</div>
+			<div class="button" id="sjGameScreenReplay_close" >
+				<a href="#" onclick="game.screenClose( 'replay'); return false;" onfocus="this.blur()">close</a>
+			</div>
+		
+		</div>
+		
+		<!-- Screen - Game Over --> 
+		<div id="sjGameScreenOver">
+			
+			<img src="gfx/gui/title_gameover.gif" width="242" height="55" alt="Game over" class="title" />
+			
+			<div class="item">
+				<h2>You scored:</h2>
+				
+				<table>
+					<tr>
+						<td></td>
+						<td>Score</td>
+						<td class="score"><span id="sjGameScreenOver_score"></span></td>
+					</tr>
+					<tr>
+						<td class="math">+</td>
+						<td>Board clearance bonus</td>
+						<td class="score"><span id="sjGameScreenOver_bonus"></span></td>
+					</tr>
+					<tr>
+						<td colspan="3" class="total">
+							<span id="sjGameScreenOver_scoreTotal"></span>
+						</td>
+					</tr>
+				</table>
+			
+			</div>
+			
+			<div class="item">
+				<p>Your nickname: <span id="sjGameScreenOver_name"></span></p>
+				<p>(you can change this in the <a href="#" onclick="game.screenOpen( 'options'); return false;" onfocus="this.blur()">options</a> screen)</p>
+			</div>
+			
+			<div class="button">
+				<a href="#" onclick="game.actionNewGame(); return false;" onfocus="this.blur()">Play again?</a> 
+			</div>
+		</div>
+			
+		<!-- Screen - Options -->
+		<div id="sjGameScreenOptions">
+		
+			<img src="gfx/gui/title_options.gif" width="178" height="46" alt="Options" class="title" />
+			
+			<div class="item" id="sjGameScreenOptions_blockName">
+				My name: <span id="sjGameScreenOptions_currentName"></span><br />
+				<div id="sjGameScreenOptions_loading"><img src="gfx/gui/loading.gif" width="32" height="32" alt="Loading..." /></div>
+				<input type="text" size="20" maxlength="20" id="sjGameScreenOptions_newName" /> 
+				<input type="button" value="Change name" onclick="game.screen( 'options').changeName()" />
+				<p>Change how your name appears in the high scores.</p>
+			</div>
+			
+			<div class="item">
+				Theme: 
+				<select id="sjGameScreenOptions_theme" onchange="game.screen( 'options').changeTheme( this.value)">
+					<option value="default">Default theme</option>
+					<option value="alternate">Alternate theme</option>
+					<option value="samegnome">Same GNOME theme</option>
+				</select>
+				<p>Allows you to choose a theme for the board pieces.</p>
+			</div>
+			
+			<div class="item">
+				Fast animation: <input type="checkbox" id="sjGameScreenOptions_fastAnim" onchange="game.screen( 'options').toggleFastAnimation()" />
+				<p>Checking this makes the board pieces move much faster.</p>
+			</div>
+			
+			<div class="button">
+				<a href="#" onclick="game.screenClose( 'options'); return false;" onfocus="this.blur()">close</a>
+			</div>
+			
+		</div>
+		
+		<!-- Screen - Scores -->
+		<div id="sjGameScreenScores">
+		
+			<div id="sjGameScreenScores_loading"><img src="gfx/gui/loading.gif" width="32" height="32" alt="Loading..." /></div>
+		
+			<img src="gfx/gui/title_scores.gif" width="260" height="65" alt="High Scores" class="title" />
+			
+			<!-- World score table automatically generated -->
+			<div id="sjGameScreenScores_scores"></div>
+			
+			<div class="item">
+				Rank: 
+				<span id="sjGameScreenScores_playerRank"></span>&nbsp;
+				My top 5: 
+				<span id="sjGameScreenScores_playerScore0"></span>, 
+				<span id="sjGameScreenScores_playerScore1"></span>, 
+				<span id="sjGameScreenScores_playerScore2"></span>, 
+				<span id="sjGameScreenScores_playerScore3"></span>, 
+				<span id="sjGameScreenScores_playerScore4"></span>
+			</div>
+			
+			<!-- Disabled in css for now - no space! -->
+			<span id="sjGameScreenScores_worldAverage"></span>
+			<span id="sjGameScreenScores_playerAverage"></span>
+			
+			<div class="button">
+				<a href="#" onclick="game.screenClose('scores'); return false;" onfocus="this.blur()">close</a>
+			</div>
+
+		</div>
+		
+		<!-- Screen - Help -->
+		<div id="sjGameScreenHelp">
+		
+			<img src="gfx/gui/title_help.gif" width="95" height="60" alt="Help" class="title" />
+		
+			<!--  Individual help pages -->
+			<div id="pages">
+			
+				<div class="page" id="sjGameScreenHelp_page1">
+				<h2>Coming soon</h2>
+				<p class="quote">"A book is no substitute for experience"</p>
+				<p class="answer">So use a quote to disguise the lack of help screen.</p>
+				</div>
+				
+			</div>
+		
+			<div class="button">
+				<a href="#" onclick="game.screenClose('help'); return false;" onfocus="this.blur()">close</a>
+			</div>
+
+		</div>
+		
+	</div>
+	
+	<div id="sjGUIStatus">
+		<span id="sjGameScore"></span>
+		<span id="sjGameScorePotential">0</span>
+	</div>
+	
+</div>
+
+<div id="taptrap"><a href="http://2tap.com/projects/tap-trap/" title="Tap Trap">Tap Trap Project Page</a></div>
+
+</body>
+</html>
