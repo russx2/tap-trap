@@ -4,3 +4,15 @@ Clone of Gnome's "Same Game" written in Javascript.
 
 See: http://2tap.com/projects/tap-trap/
 Play: http://2tap.com/taptrap/
+
+The game is written using Javascript (on top of XHTML) on the client side, with a server component written in PHP which handles the high scores etc.
+
+Every player is initially assigned a UUID which is then sent with each subsequent request to the server. The UUID and other game options (such as player name) are stored in a local ‘data store’ (which packs multiple key/value pairs into a single cookie).
+
+At the end of a game, the player’s score is sent to the server and is logged in the high score table. To avoid a player cheating during this phase (by manually constructing an end-of-game request), each game is initiated by retrieving a unique game key from the server which acts as a seed to construct the board layout. During the score logging phase, the game sends the unique game key as well as a list of moves the player performed. As the board can be reconstructed from the game key, it is then possible for the server to validate the game, based on the board and the moves submitted, and to independently calculate the player’s score.
+
+The only way of cheating that I can come up with would be to write a program to solve a given board based on a game key. Of course, anyone with this much time on their hands is welcome to their top spot in the high score table!
+
+The client uses AJAX (I must say I despise this term and the hype surrounding it but if you can’t beat them…) to communicate with the server so only one XHTML page is ever loaded.
+
+UTF-8 is used in all communication between the client and server, as well as for all data storage areas. Effectively, this means the high-score table can be litered with filth in a language I cannot hope to understand.
